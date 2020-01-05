@@ -10,9 +10,9 @@ class cube(object):
     w = 500
     rows = 20
 
-    def __init__(self, start, dirnx = 1, dirny = 0, color=(255,0,0)):
+    def __init__(self, start, dirnx = 1, dirny = 0, color=(255,0,0)): #default color is red
         self.pos = start
-        self.dirnx = 1
+        self.dirnx = 1 # going right
         self.dirny = 0
         self.color = color
 
@@ -26,8 +26,9 @@ class cube(object):
         i = self.pos[0]
         j = self.pos[1]
 
-        pygame.draw.rect(surface, self.color, (i*dis+1, j*dis+1, dis-2, dis-2))
-        if eyes:
+        pygame.draw.rect(surface, self.color, (i*dis+1, j*dis+1, dis-2, dis-2)) # drawing the cube inside the lines
+
+        if eyes: # if head, drawing eyes on it.
             centre = dis//2
             radius = 3
             circleMiddle = (i*dis + centre-radius, j*dis+8)
@@ -53,22 +54,22 @@ class snake(object):
             keys = pygame.key.get_pressed()
 
             for key in keys:
-                if keys[pygame.K_LEFT]:
+                if keys[pygame.K_LEFT]: # going left
                     self.dirnx = -1
                     self.dirny = 0
                     self.turns[self.head.pos[:]] = [self.dirnx, self.dirny]
 
-                elif keys[pygame.K_RIGHT]:
+                elif keys[pygame.K_RIGHT]: # going right
                     self.dirnx = 1
                     self.dirny = 0
                     self.turns[self.head.pos[:]] = [self.dirnx, self.dirny]
 
-                elif keys[pygame.K_UP]:
+                elif keys[pygame.K_UP]: #going up
                     self.dirnx = 0
                     self.dirny = -1
                     self.turns[self.head.pos[:]] = [self.dirnx, self.dirny]
 
-                elif keys[pygame.K_DOWN]:
+                elif keys[pygame.K_DOWN]: #going down
                     self.dirnx = 0
                     self.dirny = 1
                     self.turns[self.head.pos[:]] = [self.dirnx, self.dirny]
@@ -133,17 +134,16 @@ def drawGrid(w, rows, surface):
 
 def redrawWindow(surface):
     global rows, width, s, snack
-    #Black window background
-    #surface.fill((0, 0, 0))
-    #White window background
-    surface.fill((255, 255, 255))
-    s.draw(surface)
-    snack.draw(surface)
-    drawGrid(width, rows, surface)
+
+    #surface.fill((0, 0, 0)) #Black window background
+    surface.fill((255, 255, 255)) #White window background
+
+    s.draw(surface) # drawing the snake
+    snack.draw(surface) #drawing the snack
+    drawGrid(width, rows, surface) #drawing grids
     pygame.display.update()
 
 def randomSnack(rows, item):
-
     positions = item.body
     while True:
         x = random.randrange(rows)
@@ -164,11 +164,11 @@ def message_box(subject, content):
         pass
 def main():
     global width, rows, s, snack
-    width = 500
-    rows = 20
-    win = pygame.display.set_mode((width, width))
-    s = snake((255, 0, 0), (10, 10))
-    snack = cube(randomSnack(rows, s), color=(0,255,0))
+    width = 600 # we are making the display window as a square but we can also add height
+    rows = 20 # number of lines
+    win = pygame.display.set_mode((width, width)) # the display mode can he width and height
+    s = snake((255, 0, 0), (10, 10)) #color for snake is red
+    snack = cube(randomSnack(rows, s), color=(0,255,0)) #color for snack is green
     flag = True
 
     clock = pygame.time.Clock()
