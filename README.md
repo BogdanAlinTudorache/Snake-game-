@@ -1,4 +1,4 @@
-# Snake-game-
+# Snake game
 
 
 The classic snake game written in Python 3 and developed in Pycharm IDE
